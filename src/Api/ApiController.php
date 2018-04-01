@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
+//Import API Traits 
+use SwiftDesign\Api\Traits\ApiTrait;
+
 class ApiController extends Controller
 {
-    use GlobalTrait, ApiTrait;
+    use ApiTrait;
 
     public function GetAccessTokenOauth(Request $request)
     {
