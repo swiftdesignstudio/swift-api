@@ -4,6 +4,11 @@
 
 Add variables to .env file 
 
+
+	S3_ROUTE = https://s3.amazonaws.com/
+	S3_REGION = 
+	S3_BUCKET = 
+
 	SWIFT_API_LOCATION = https://swiftdesignstudio.com
 	SWIFT_API_CLIENT_ID = (request from swiftdesign)
 	SWIFT_API_KEY_SECRET = (request from swiftdesign)
@@ -12,7 +17,6 @@ Add variables to .env file
 
 	SWIFT_PUBLIC_KEY = (request from swiftdesign)
 	SWIFT_PRIVATE_KEY = (request from swiftdesign)
-
 
 
 ## Update Service Provider

@@ -15,42 +15,78 @@ class ApiController extends Controller
 {
     use ApiTrait;
 
-    public function GetAccessTokenOauth(Request $request)
+    public function getBlogMain()
     {
-        $http = new \GuzzleHttp\Client;
-        
-        $response = $http->post(getenv('SWIFT_API_LOCATION').'/oauth/token', [
-            'form_params' => [
-            'grant_type' => 'client_credentials',
-            'client_id' => getenv('SWIFT_API_CLIENT_ID'),
-            'client_secret' => getenv('SWIFT_API_KEY_SECRET'),
-            'scope' => 'view-blog',
-            ],
-        ]);
+        $view_location = 'pages.blog.main';
 
-        return json_decode((string) $response->getBody(), true);
+        $blogs = $this->getAllBlogsAPI();
+
+        if(is_null($blogs))
+        {
+            abort(404);
+        }
+
+        $paginator = $this->CustomPaginate($blogs,4);
+        
+        return view($view_location, [
+            's3route'  => $this->getS3route(),
+            'blogs'    => $paginator,
+            'categories' => $this->getCategories(),
+        ]);
     }
 
-    private function CallSwiftAPI($route, $data = null)
+    public function getBlogSingle($site_key, $blog_id)
     {
-        $http = new \GuzzleHttp\Client;
+        $view_location = 'pages.blog.single';
+        
+        $blog = $this->getSingleBlogAPI($blog_id);
 
-        $swift_route = getenv('SWIFT_API_LOCATION').'/api/';
-
-        $api_route = $swift_route . $route; 
-           
-        $response = $http->post($api_route, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer '. getenv('SWIFT_API_ACCESS_TOKEN'),
-            ],
-            'form_params' => [
-                'key'  => getenv('SWIFT_PUBLIC_KEY'),
-                'data' => $data,
-            ],
+        if(is_null($blog))
+        {
+            abort(404);
+        }
+        return view($view_location, [
+            's3route'  => $this->getS3route(),
+            'news'    => $blog,
+            'categories' => $this->getCategories(),
         ]);
+    }
 
-        return json_decode((string) $response->getBody(), true);
+    public function getBlogsCategory($category)
+    {
+        $view_location = 'pages.blog.main';
+
+        $blogs = collect($this->getAllBlogsAPI())->where('category_name',$category)->all();
+        
+        if(is_null($blogs))
+        {
+            abort(404);
+        }
+        
+        $route = '/blog/category/'.$category;
+        $paginator = $this->CustomPaginate($blogs,4, $route);
+        
+        return view($view_location, [
+            's3route'  => $this->getS3route(),
+            'blogs'    => $paginator,
+            'categories' => $this->getCategories(),
+        ]);
+    }
+
+    public function getCategories()
+    {
+        $blogs = $this->getAllBlogsAPI();
+        return array_unique(array_pluck($blogs,'category_name'));
+    }
+
+    public function getAllBlogsAPI()
+    {
+        return $this->CallSwiftAPI('request/client/blog/all');
+    }
+
+    public function getSingleBlogAPI($id)
+    {
+        return $this->CallSwiftAPI('request/client/blog/single', $id);
     }
     
 }
