@@ -1,6 +1,6 @@
 <?php
 
-namespace SwiftDesign\Swift\Api;
+namespace SwiftDesign\Api\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;

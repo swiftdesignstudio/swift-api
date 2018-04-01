@@ -2,6 +2,18 @@
 
 ## Installation Overview 
 
+Add variables to .env file 
+
+	SWIFT_API_LOCATION = https://swiftdesignstudio.com
+	SWIFT_API_CLIENT_ID = (request from swiftdesign)
+	SWIFT_API_KEY_SECRET = (request from swiftdesign)
+	SWIFT_API_ACCESS_TOKEN = (request from swiftdesign)
+	SWIFT_API_URL_REQUEST = false
+
+	SWIFT_PUBLIC_KEY = (request from swiftdesign)
+	SWIFT_PRIVATE_KEY = (request from swiftdesign)
+
+
 
 #Update Service Provider
 
@@ -16,3 +28,7 @@
 
 
 #Route to Receive OAUTH Token 
+
+	Update .env file to represent SWIFT_API_URL_REQUEST = true
+
+	Submit for API Token {site}/api/callback/oauth/setup
