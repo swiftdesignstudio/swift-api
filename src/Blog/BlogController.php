@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 //Import API Traits 
 use SwiftDesign\Api\Traits\ApiTrait;
 
-class ApiController extends Controller
+class BlogController extends Controller
 {
     use ApiTrait;
 
