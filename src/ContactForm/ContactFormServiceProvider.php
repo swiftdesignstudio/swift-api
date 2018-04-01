@@ -32,7 +32,12 @@ class ContactFormServiceProvider extends LaravelServiceProvider {
 
         //Register Contact Form 
         $this->registerContactForm();
-        $this->app->alias(Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class, 'NoCaptcha');
+
+        $this->app->register(
+            'Anhskohbo\NoCaptcha\NoCaptchaServiceProvider'
+        );
+
+        $this->app->alias('Anhskohbo\NoCaptcha\NoCaptchaServiceProvider','NoCaptcha');
     }
 
     protected function registerContactForm()

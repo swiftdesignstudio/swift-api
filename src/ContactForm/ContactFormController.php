@@ -17,14 +17,16 @@ class ContactFormController extends Controller
 
     public function SubmitContactForm(Request $request)
     {
-        $view_location = '/contact-form/submit';
+        $view_location = '/contact';
 
         //Need validation OR g-recaptcha 
+        if(strlen(getenv('NOCAPTCHA_SITEKEY')) > 1 )
+        {
+            $this->validate($request, [
+                'g-recaptcha-response' => 'required|captcha'
+            ]);
+        }
 
-        $this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha'
-        ]);
-        
         $response = $this->submitForm($request);
 
         return redirect($view_location);
