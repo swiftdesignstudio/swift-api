@@ -32,10 +32,19 @@ class ContactFormServiceProvider extends LaravelServiceProvider {
 
         //Register Contact Form 
         $this->registerContactForm();
+        $this->app->alias(Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class, 'NoCaptcha');
     }
 
     protected function registerContactForm()
     {
         include __DIR__.'/routes.php';
+    }
+
+    public function provides()
+    {
+        return [
+            Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+            'NoCaptcha',
+        ];
     }
 }
