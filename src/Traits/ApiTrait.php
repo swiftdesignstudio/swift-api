@@ -30,4 +30,16 @@ trait ApiTrait
 
        	return json_decode((string) $response->getBody(), true);
     }
+
+    // protected function getS3route()
+    // {
+    //     return getenv('S3_ROUTE') . getenv('S3_BUCKET') . '/' . getenv('SWIFT_PUBLIC_KEY') .'/Blog';
+    // }
+
+    protected function getClientPublicKey()
+    {
+        return getenv('SWIFT_PUBLIC_KEY');
+    }
+
+    
 }
