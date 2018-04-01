@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SwiftDesign\\Api\\": "src/",
+      "SwiftDesign\\Api\\": "src/"
     }
   }
 }
