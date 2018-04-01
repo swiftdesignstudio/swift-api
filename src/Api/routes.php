@@ -16,7 +16,7 @@ Route::get('/api/callback/submit/test', 'SwiftDesign\Api\Api\ApiController@testA
 		SECURITY VULNERABILITY 
 */
 
-if(getenv('APP_DEBUG'))
+if(getenv('SWIFT_API_URL_REQUEST') === 'true')
 {
 	Route::get('/api/callback/oauth/setup', 'SwiftDesign\Api\Api\ApiController@GetAccessTokenOauth');
 }

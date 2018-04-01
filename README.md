@@ -32,7 +32,7 @@ Blog API Package
 ContactForm API Package
 	
 	SwiftDesign\Api\ContactForm\ContactFormServiceProvider::class,
-
+	Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
 ## Route to Receive OAUTH Token 
 
